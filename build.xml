@@ -1,0 +1,60 @@
+<project name="Radiatrix" basedir="." default="clean.run">
+	<description>&#10;***Welcome to the Radiatrix.***&#10;&#10;</description>
+    <property name="src.dir"		value="src"/>
+    <property name="build.dir"		value="build"/>
+    <property name="classes.dir"	value="${build.dir}/classes"/>
+    <property name="jar.dir"		value="${build.dir}/jar"/>
+    <property name="docs.dir"		value="docs" />
+    <property name="package.name"	value="com.billhorvath.radiatrix"/>
+    <property name="main-class"		value="${package.name}.Radiatrix"/>
+
+	<path id="source.path">
+		<pathelement location="${src.dir}/" />
+	</path>
+
+    <target name="clean"
+    	description = "Deletes the build directory so we can start from scratch.">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile"
+    	description="Compiles the Radiatrix source code.">
+        <mkdir dir="${classes.dir}"/>
+        <javac includeantruntime="false"
+        	srcdir="${src.dir}" 
+        	destdir="${classes.dir}">
+        	<exclude name="**/package-info.java"/>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile"
+    	description = "Jars up the package for distribution.">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar"
+    	description="Jars up the package and runs the main class.">
+        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
+    </target>
+
+    <target name="doc"
+    	description="Generates the package documentation using javadoc.">
+    	<delete dir="${docs.dir}"/>
+    	<mkdir dir="${docs.dir}"/>
+    	<javadoc destdir="${docs.dir}" packagenames="com.billhorvath.radiatrix.*">
+    		<sourcepath refid="source.path"/>
+    	</javadoc>
+    </target>
+
+    <target name="clean-build" depends="clean,jar"
+    	description="Deletes the build directory, then builds and jars the package."/>
+
+    <target name="clean.run" depends="clean,run"
+    	description="Deletes the build directory, builds and jars the package, and runs the main class."/>
+
+</project>
