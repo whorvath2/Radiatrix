@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <ScrollPane fx:id="mainScrollPane" layoutX="14.0" layoutY="14.0" prefHeight="150.0" prefWidth="480.0" vbarPolicy="ALWAYS">
+      <content>
+        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+          <children>
+            <Pane fx:id="mainPane" prefHeight="200.0" prefWidth="480.0">
+              <children>
+                <Label fx:id="testLabel" text="Label" />
+                <TextArea fx:id="testArea" layoutX="61.0" prefHeight="127.0" prefWidth="200.0" wrapText="true" />
+              </children>
+            </Pane>
+          </children>
+        </AnchorPane>
+      </content>
+    </ScrollPane>
+    <Button fx:id="nextButton" layoutX="394.0" layoutY="179.0" mnemonicParsing="false" prefWidth="100.0" text="Next Step" />
+    <Button id="backButton" fx:id="prevStep" layoutX="15.0" layoutY="179.0" mnemonicParsing="false" prefWidth="100.0" text="Back" />
+  </children>
+</AnchorPane>

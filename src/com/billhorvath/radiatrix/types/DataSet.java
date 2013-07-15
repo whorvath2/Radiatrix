@@ -23,7 +23,10 @@ Note: Implementations of this interface may allow for missing measurements; howe
 */
 
 public interface DataSet<T extends Tuple>{
-
+	/**
+	Returns the name of this dataset.	
+	*/
+	public String name();
 	/**
 	Returns a particular tuple in this dataset.
 	*/

@@ -11,22 +11,24 @@ A simplest-case implementation of a {@link DataSet DataSet}.
 @version 1.0
 */
 
-public class BasicDataSet<T extends Tuple<? super Measurement>> implements DataSet<T>{
+public class BasicDataSet<T extends Tuple> implements DataSet<T>{
 
 	private final Map<String, Tuple> data = new HashMap<String, Tuple>();
 	private final List<T> tuples;
+	private final String name;
 	
-	public BasicDataSet(List<T> tuples){
+	private BasicDataSet(String name, List<T> tuples){
+		this.name = name;
 		this.tuples = new ArrayList<T>(tuples);
 		for (Tuple tuple : tuples){
 			data.put(tuple.name(), tuple);
 		}	
 	}
 	/**
-		
+	Creates a DataSet instance initialized to contain tuples.	
 	*/
-	public static BasicDataSet<? extends Tuple> dataSet(List<? extends Tuple> tuples){
-		return new BasicDataSet(tuples);
+	public static BasicDataSet<Tuple> dataSet(String name, List<Tuple> tuples){
+		return new BasicDataSet(name, tuples);
 	}
 	/**
 	Returns a particular tuple in this dataset.
@@ -53,5 +55,10 @@ public class BasicDataSet<T extends Tuple<? super Measurement>> implements DataS
 	public void sort(Comparator<T> comparator){
 		Collections.sort(tuples, comparator);
 	}
-
+	/**
+	Returns the name of this dataset.	
+	*/
+	public String name(){
+		return this.name;
+	}
 }
