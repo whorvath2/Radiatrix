@@ -16,20 +16,19 @@ class TupleFactory{
 	/**
 		
 	*/
-	static <T extends Measurement> Tuple getInstance(final String name, Map<String, T> measurements){
+	static Tuple<Measurement> getInstance(final String name, List<Measurement<Number>> measurements){
 
-		//Create our own copy of the map, in case the submitted one changes
-		final Map<String, T> map = new HashMap<String, T>(measurements);
+		final List<Measurement> measures = new ArrayList<Measurement>(measurements);
 		
-		return new Tuple(){
+		return new Tuple<Measurement>(){
 			public String name(){
 				return name;
 			}
-			public Map<String, T> measurements(){
-				return map;
+			public List<Measurement> measurements(){
+				return measures;
 			}
 			public int size(){
-				return map.size();
+				return measures.size();
 			}
 		};
 	}

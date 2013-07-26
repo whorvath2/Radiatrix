@@ -20,14 +20,14 @@ import com.billhorvath.radiatrix.types.*;
 Provides a means of entering the raw data to be displayed in the Radiatrix.
 */
 
-public class DataEntryScene{
+public class TupleNamingScene{
 	
 	private final DataSetBuilder builder;
 	
 	/**
 	
 	*/
-	public DataEntryScene(DataSetBuilder builder){
+	public TupleNamingScene(DataSetBuilder builder){
 		this.builder = builder;
 	}
 	
@@ -37,80 +37,56 @@ public class DataEntryScene{
     public void start(final Stage stage) throws Exception {
     	Platform.runLater(new Runnable(){
     		public void run(){
-				Text title = new Text("Data entry for " + builder.name());
+				Text title = new Text("Tuple names for " + builder.name());
 				VBox vbox = getVbox();
 				ObservableList<Node> vchildren = vbox.getChildren();
 				vchildren.add(title);
 				
-				int numTuples = builder.numberOfTuples();
-				List<String> tupleNames = new ArrayList<String>(builder.tupleNames());
-				final Map<String, Map<String, Number>> tupleMap = new HashMap<String, Map<String, Number>>(numTuples);
-				
+				final int numTuples = builder.numberOfTuples();
+				final List<String> tupleNames = new ArrayList<String>(numTuples);
 				for (int i = 0; i < numTuples; i++){
-					String str = tupleNames.get(i);
-					if (str == null) str = "Tuple " + String.valueOf(i + 1) + ": ";
-					final String tupleName = str;
-
-					Text text = new Text(str);
-					vchildren.add(text); //vbox because we want this above the data fields
-
 					HBox hbox = getHbox();
 					ObservableList<Node> hchildren = hbox.getChildren();
 
-					int num = 0;
-					Map<String, String> measureNamesAndAbbr = builder.measureNamesAndAbbr();
-					
-					final Map<String, Number> numberMap = new HashMap<String, Number>(measureNamesAndAbbr.size());
-					
-					for (final String measName : measureNamesAndAbbr.keySet()){
-						num++;
-						text = new Text(measName + ": ");
-						hchildren.add(text);
+					final int num = i + 1;
+					String str = "Name of tuple " + String.valueOf(num) + ": ";
 
-						final TextField dataField = new TextField();
-						dataField.setOnAction(getEventHandler(dataField, stage));
-						hchildren.add(dataField);
+					Text text = new Text(str);
+					hchildren.add(text); 
 
-						ChangeListener listener = new ChangeListener<String>(){
-							@Override
-							public void changed(ObservableValue<? extends String> observable,
-								String oldValue, String newValue){
-
-								String data = dataField.getText();
-								Double dbl = new Double(0);
-								try{
-									dbl = new Double(data);
-								}
-								catch(NumberFormatException e){
-									dataField.setStyle("-fx-border-style: solid; -fx-border-width: 2px; -fx-border-color: red;");
-									PopupMessage.showPopup("Please enter either a positive integer, or zero.", "Got it! Thanks!", stage);
-									return;
-								}								
-								
-								numberMap.put(measName, dbl);
+					final TextField nameField = new TextField(String.valueOf(num));
+					hchildren.add(nameField);
+					ChangeListener listener = new ChangeListener<String>(){
+						@Override
+						public void changed(ObservableValue<? extends String> observable,
+							String oldValue, String newValue){
+							
+							String tupleName = nameField.getText().trim();
+							if(tupleName == null || tupleName.isEmpty()){
+								tupleName = "Tuple " + num;
 							}
-						};
-						tupleMap.put(tupleName, numberMap);
-						dataField.textProperty().addListener(listener);
-
-						
-						String abbr = measureNamesAndAbbr.get(measName);
-						if (abbr == null) abbr = "";
-						hchildren.add(new Text(abbr));
-						
-					}
+							if (oldValue != null){
+								tupleNames.remove(oldValue);
+							}
+							tupleNames.add(num, tupleName);
+						}
+					};
+					nameField.textProperty().addListener(listener);
 					vchildren.add(hbox);
 				}
-				Button button = new Button("Show Me The Radiatrix!");
+				Button button = new Button("Done Naming Tuples");
 				button.onActionProperty().addListener(new ChangeListener<EventHandler<ActionEvent>>(){
 					@Override
 					 public void changed(ObservableValue<? extends EventHandler<ActionEvent>> observable, EventHandler<ActionEvent> oldValue, EventHandler<ActionEvent> newValue){
-						builder.measurements(tupleMap);
-					}
+					 	if (tupleNames.isEmpty()){
+					 		for (int i = 0; i < numTuples; i++){
+					 			tupleNames.add(i, "Tuple " + (i +1));
+					 		}
+					 	}
+						builder.tupleNames(tupleNames);
+					 }
 				});
-
-				
-				button.setOnAction(new ShowRadiatrixController(builder)); //TODO
+				button.setOnAction(new ShowTupleSetupController(builder));
 				vchildren.add(button);
 				
 				Group group = new Group();
@@ -150,10 +126,10 @@ public class DataEntryScene{
     */
     private ScrollPane getScrollPane(VBox vbox){	
     	return ScrollPaneBuilder.create()
-//			.fitToWidth(true)
-//			.fitToHeight(true)
+			.fitToWidth(true)
+			.fitToHeight(true)
 			.prefViewportHeight(Dimensions.LARGE.height())
-			.prefViewportWidth(Dimensions.MEDIUM.width())
+			.prefViewportWidth(Dimensions.LARGE.width())
 			.content(vbox)
 			.build();
     }

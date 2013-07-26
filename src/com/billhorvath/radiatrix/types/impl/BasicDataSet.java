@@ -13,16 +13,36 @@ A simplest-case implementation of a {@link DataSet DataSet}.
 
 public class BasicDataSet<T extends Tuple> implements DataSet<T>{
 
-	private final Map<String, Tuple> data = new HashMap<String, Tuple>();
+	private final Map<String, Tuple> data;
+	private final Map<String, Number> maxValues;
 	private final List<T> tuples;
 	private final String name;
 	
 	private BasicDataSet(String name, List<T> tuples){
 		this.name = name;
 		this.tuples = new ArrayList<T>(tuples);
+		this.data = new HashMap<String, Tuple>();
 		for (Tuple tuple : tuples){
 			data.put(tuple.name(), tuple);
-		}	
+		}
+		this.maxValues = new HashMap<String, Number>(size());
+
+		for (Tuple tuple : tuples){
+		
+			List<Measurement> measures = tuple.measurements();
+
+			for (Measurement measure : measures){
+				Number compare = measure.value();
+				assert compare != null;
+				
+				String measureName = measure.name();
+				Number num = maxValues.get(measureName);
+				//TO-DO: Give deeper thought to whether long is correct...
+				if (num == null || num.longValue() < compare.longValue()){
+					maxValues.put(measureName, compare);
+				}
+			}
+		}
 	}
 	/**
 	Creates a DataSet instance initialized to contain tuples.	
@@ -60,5 +80,25 @@ public class BasicDataSet<T extends Tuple> implements DataSet<T>{
 	*/
 	public String name(){
 		return this.name;
+	}
+	/**
+	Calculates the max values of each measurement across the tuples in this data set, and maps the field names to the max values.
+	
+	For example, if the raw data returned from value() on each measurement of three tuples was as follows:
+				One Two	Three
+	Tuple 1:	11	15	2
+	Tuple 2:	5	12	2.1
+	Tuple 3:	10	4	2.4
+	
+	The map would be as follows:
+	
+	Key		Value
+	One		11
+	Two		15
+	Three	2.4
+	
+	*/
+	public Map<String, Number> maxValues(){
+		return new HashMap<String, Number>(maxValues);
 	}
 }

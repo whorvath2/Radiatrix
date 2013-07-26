@@ -11,7 +11,7 @@ public enum Dimensions{
 	SMALL(750, 300, 0, 0, 0),
 	MEDIUM(1000, 400, 0, 0, 0),
 	LARGE(1300, 520, 0, 0, 0),
-	CIRCLE(0, 0, 200, 200, 100);
+	CIRCLE(0, 0, 300, 300, 100);
 	
 	private final int width, height, x, y, radius;
 	

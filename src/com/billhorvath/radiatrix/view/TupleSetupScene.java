@@ -1,6 +1,7 @@
 package com.billhorvath.radiatrix.view;
 
 import com.billhorvath.radiatrix.types.*;
+import com.billhorvath.radiatrix.types.impl.*;
 import com.billhorvath.radiatrix.controller.*;
 import javafx.fxml.*;
 import javafx.scene.*;
@@ -22,16 +23,13 @@ import java.util.*;
 
 public class TupleSetupScene extends Application{
 
-	private final String name;
-	private final int numMeasures, numTuples;
+	private final DataSetBuilder builder;
 	
 	/**
 
 	*/
-	public TupleSetupScene(String name, int numMeasures, int numTuples){
-		this.name = name;
-		this.numMeasures = numMeasures;
-		this.numTuples = numTuples;
+	public TupleSetupScene(DataSetBuilder builder){
+		this.builder = builder;
 	}
 
 	/**
@@ -41,7 +39,10 @@ public class TupleSetupScene extends Application{
     public void start(final Stage stage) throws Exception {
     	Platform.runLater(new Runnable(){
     		public void run(){
-				Text title = new Text("Tuple measurement units for " + name);
+
+				Button button = new Button("Next Step");
+
+				Text title = new Text("Tuple measurement units for " + builder.name());
 				VBox vbox = VBoxBuilder.create()
 					.padding(new Insets(0, 10, 0, 10))
 					.spacing(10)
@@ -50,31 +51,71 @@ public class TupleSetupScene extends Application{
 					.build();
 				ObservableList<Node> children = vbox.getChildren();
 				children.add(title);
-				
-				final Map<TextField, TextField> dataNamesAndUnits = new HashMap<TextField, TextField>(numMeasures);
+				int numMeasures = builder.measurementsPerTuple();
+				final Map<String, String> nameAbbrevMap = new HashMap<String, String>(numMeasures);
 				for (int i = 0; i < numMeasures; i++){
 					HBox hbox = HBoxBuilder.create()
 						.padding(new Insets(0, 10, 0, 10))
 						.spacing(10)
 						.alignment(Pos.TOP_LEFT)
 						.build();
+					ObservableList<Node> hchildren = hbox.getChildren();
+						
 					final String num = String.valueOf(i + 1);
-					Text name = new Text("Name of measure number " + num + ": ");
+					Text nameLabel = new Text("Name of measure number " + num + ": ");
 					final TextField nameField = new TextField();
-					hbox.getChildren().add(name);
-					hbox.getChildren().add(nameField);
+					hchildren.add(nameLabel);
+					hchildren.add(nameField);
 					
-					Text text = new Text("Abbreviated unit name for measure number " + String.valueOf(i) + ": ");
-					hbox.getChildren().add(text);
+					Text abbrLabel = new Text("Abbreviated unit name for measure number " + num + ": ");
+					hchildren.add(abbrLabel);
 					final TextField abbrField = new TextField();
+
+					final int q = i;
 					
-					dataNamesAndUnits.put(nameField, abbrField);
+					ChangeListener nameListener = new ChangeListener<String>(){
+						@Override
+						public void changed(ObservableValue<? extends String> observable,
+							String oldValue, String newValue){
+							String measureName = nameField.getText();
+							if (measureName == null) measureName = "Measure " + q;
+							if (!measureName.equals(oldValue)){
+								nameAbbrevMap.remove(oldValue);
+							}							
+							String abbreviation = abbrField.getText();
+							if (abbreviation == null) abbreviation = "Units";
+							
+							nameAbbrevMap.put(measureName, abbreviation);														
+						}
+					};
+					nameField.textProperty().addListener(nameListener);
 					
-					hbox.getChildren().add(abbrField);
+					ChangeListener abbrListener = new ChangeListener<String>(){
+						@Override
+						public void changed(ObservableValue<? extends String> observable,
+							String oldValue, String newValue){
+							String measureName = nameField.getText();
+							if (measureName == null) measureName = "Measure " + q;
+							
+							String abbreviation = abbrField.getText();
+							if (abbreviation == null) abbreviation = "Units";
+							
+							nameAbbrevMap.put(measureName, abbreviation);														
+						}
+					}; 
+					
+					abbrField.textProperty().addListener(abbrListener);
+					hchildren.add(abbrField);
 					children.add(hbox);
 				}
-				Button button = new Button("Next Step");
-				button.setOnAction(new TupleSetupButtonController(name, numTuples, dataNamesAndUnits));
+				button.onActionProperty().addListener(new ChangeListener<EventHandler<ActionEvent>>(){
+					@Override
+					 public void changed(ObservableValue<? extends EventHandler<ActionEvent>> observable, EventHandler<ActionEvent> oldValue, EventHandler<ActionEvent> newValue){
+						builder.measurementNamesAndAbbreviations(nameAbbrevMap);
+					 }
+				});
+
+				button.setOnAction(new ShowDataEntryController(builder));
 				children.add(button);
 				
 				Group group = new Group();
