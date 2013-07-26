@@ -19,9 +19,9 @@ public interface Tuple<T extends Measurement>{
 	public String name();
 
 	/**
-	Returns a map containing the measured data points contained in this tuple, along with a name (key) that uniquely identifies each data point within the tuple. The purpose of providing a name for each data point is to allow for naming the axes used to graph the data in the tuple, and for tuples to be collected into {@link DataSet DataSets}.
+	Returns a list containing the measured data points in this tuple.
 	*/
-	public Map<String, T> measurements();
+	public List<T> measurements();
 	
 	/**
 	Returns the number of measurements in this tuple. If this tuple were represented as a row in a table, this would be the number of columns in the table.

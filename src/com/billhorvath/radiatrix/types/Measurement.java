@@ -8,6 +8,11 @@ An individual measurement taken against a particular unit scale. A measurement i
 
 public interface Measurement<T extends Number>{
 	/**
+	Returns the name of this particular measurement. This name should be unique within any particular {@link Tuple tuple}.
+	*/
+	String name();
+	
+	/**
 	Returns the name of a single unit on this measurement's scale. E.g., inch, pound, ohm, etc.
 
 	@return the name of a single unit on this measurement's scale.
@@ -39,14 +44,4 @@ public interface Measurement<T extends Number>{
 	@return The value of the measurement in the units specified by units().
 	*/
 	public T value();
-
-	/**
-	Converts this measurement into another Measurement of the same group. (optional operation)
-	
-	Implementations of this interface are contractually obligated to throw an IllegalArgumentException if a Measurement from a different group is passed to this method. 
-	
-	@throws UnsupportedOperationException if the <code>convert</code> operation is not supported by this measurement.
-	@throws IllegalArgumentException if (otherMeasure.type() == this.type()) is false.
-	*/
-	public Measurement<T> convert(Measurement<T> otherMeasure);
 }

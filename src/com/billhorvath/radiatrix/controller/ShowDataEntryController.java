@@ -7,25 +7,21 @@ import javafx.scene.*;
 import javafx.stage.*;
 import java.util.*;
 import com.billhorvath.radiatrix.view.*;
-import com.billhorvath.radiatrix.types.*;
+import com.billhorvath.radiatrix.types.impl.*;
 
 /**
 Closes the window containing the button to which this event handler is added.
 */
 
-public class TupleSetupButtonController implements EventHandler<ActionEvent>{
+public class ShowDataEntryController implements EventHandler<ActionEvent>{
 	
-	private final String name;
-	private final int numTuples;
-	private final Map<TextField, TextField> dataNamesAndUnits;
-
+	private final DataSetBuilder builder;
+	
 	/**
 		
 	*/
-	public TupleSetupButtonController(String name, int numTuples, Map<TextField, TextField> dataNamesAndUnits){
-		this.name = name;
-		this.numTuples = numTuples;
-		this.dataNamesAndUnits = dataNamesAndUnits;
+	public ShowDataEntryController(DataSetBuilder builder){
+		this.builder = builder;
 	}
 	/**
 
@@ -36,7 +32,7 @@ public class TupleSetupButtonController implements EventHandler<ActionEvent>{
 	
 		Node node = (Node)event.getSource();
 		Stage stage = (Stage)node.getScene().getWindow();
-		DataEntryScene scene = new DataEntryScene(name, numTuples, dataNamesAndUnits);
+		DataEntryScene scene = new DataEntryScene(builder);
 		try{
 			scene.start(stage);
 		}

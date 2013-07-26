@@ -49,17 +49,22 @@ public class PolarModel<T extends Tuple>{
 	@return A set containing the name of each data point in the tuple.
 	*/
 	public Set<String> axisNames(){
-		return data.measurements().keySet();
+		Set<String> result = new HashSet<String>(data.size());
+		List<Measurement> measures = data.measurements();
+		for (Measurement measure : measures){
+			result.add(measure.name());
+		}
+		return result;
 	}
 	
+	/**
+		
+	*/
 	public Set<String> axisNamesWithUnits(){
-		Map<String, Measurement> measures = data.measurements();
-		int n = measures.size();
-		Set<String> result = new HashSet<String>(n);
-		List<String> keys = new ArrayList<String>(measures.keySet());
-		for (int i = 0; i < n; i++){
-			String key = keys.get(i);
-			String str = key + " " + measures.get(key).unitNameAbbr();
+		List<Measurement> measures = data.measurements();
+		Set<String> result = new HashSet<String>(measures.size());
+		for (Measurement measure : measures){
+			String str = measure.name() + " " + measure.unitNameAbbr();
 			result.add(str);
 		}
 		return result;
@@ -72,14 +77,10 @@ public class PolarModel<T extends Tuple>{
 		
 	*/
 	public Map<String, Number> dataPoints(){
-		Map<String, Measurement> measures = data.measurements();		
-		int n = measures.size();
-		Map<String, Number> result = new HashMap<String, Number>(n);
-		List<String> keys = new ArrayList<String>(measures.keySet());
-		for (int i = 0; i < n; i++){
-			String name = keys.get(i);
-			Measurement measure = measures.get(name);
-			result.put(name, measure.value());			
+		List<Measurement> measures = data.measurements();		
+		Map<String, Number> result = new HashMap<String, Number>(measures.size());
+		for (Measurement measure: measures){
+			result.put(measure.name(), measure.value());
 		}
 		return result;
 	}

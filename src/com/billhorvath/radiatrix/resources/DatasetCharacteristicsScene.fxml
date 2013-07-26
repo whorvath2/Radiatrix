@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" fx:id="datasetSetupPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.billhorvath.radiatrix.controller.NextButtonController">
+<AnchorPane id="AnchorPane" fx:id="datasetSetupPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.billhorvath.radiatrix.controller.ShowTupleNameController">
   <children>
     <TitledPane animated="false" collapsible="false" minWidth="493.0" prefHeight="182.0" prefWidth="493.0" text="Dataset Setup" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <content>

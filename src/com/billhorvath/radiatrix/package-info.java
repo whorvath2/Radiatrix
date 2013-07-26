@@ -1,10 +1,16 @@
 /**
 
-<h2>The Radiatrix - A Columnar Multi-Dimensional Data Visualization Tool</h2>
+<h2>The Radiatrix - A Columnar Multi-Dimensional Data Correlation Visualization Tool</h2>
 
 <h3>Overview</h3>
 <p>
 The Radiatrix allows tuples (measures with any arbitrary number of degrees of freedom) that are taken repeatedly (either across or within subjects) to be visualized using a combination of polar and axial perspectives, i.e. arranged as a column or cylinder.
+</p>
+<p>
+For the purpose of visualization, the scale of units of individual measures don't matter, especially in relation to other measures into which they could be logically converted. The idea of this tool is to show how measures correlate with one another, regardless of the scale at which they are constructed. Ergo, all measures are scaled to be 'visually appreciable' in the viewing scene.
+</p>
+<p>
+To clarify with an example: If measures were taken in one dimension in millimeters, and along another dimension in meters, both will be represented in the radiatrix as a ratio within their maximum measures, and not relative to one another's actual scale.
 </p>
 
 <h3>Specification</h3>

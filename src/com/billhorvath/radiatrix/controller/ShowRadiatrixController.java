@@ -8,20 +8,22 @@ import javafx.event.*;
 import javafx.scene.*;
 import javafx.stage.*;
 import java.util.*;
+import com.billhorvath.radiatrix.view.*;
+import com.billhorvath.radiatrix.types.impl.*;
 
 /**
 
 */
 
-public class RadiatrixShowDisplayController implements EventHandler<ActionEvent>{
+public class ShowRadiatrixController implements EventHandler<ActionEvent>{
 	
-	private DataSet<Tuple> dataset; 
-
+	private final DataSetBuilder builder;
+	
 	/**
 	
 	*/
-	public RadiatrixShowDisplayController(DataSet<Tuple> dataset){
-		this.dataset = dataset;
+	public ShowRadiatrixController(DataSetBuilder builder){
+		this.builder = builder;
 	}	
 	/**
 
@@ -32,7 +34,7 @@ public class RadiatrixShowDisplayController implements EventHandler<ActionEvent>
 	
 		Node node = (Node)event.getSource();
 		Stage stage = (Stage)node.getScene().getWindow();
-// 		RadiatrixDisplay scene = new RadiatrixDisplay(dataset);
-// 		scene.start(stage);
+		RadiatrixScene radiatrix = RadiatrixScene.getInstance(stage);
+		radiatrix.view(builder);
 	}
 }
