@@ -36,6 +36,10 @@ public class RadiatrixScene{
 	*/
 	public void view(DataSetBuilder builder){
 		DataSet dataSet = builder.build();
+		
+		
+		
+		
 		PolarView polar = PolarView.getInstance(dataSet.maxValues());
 		List<Tuple> data = dataSet.data();
 		Group root = new Group();

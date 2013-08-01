@@ -2,6 +2,7 @@ package com.billhorvath.radiatrix.view;
 
 import com.billhorvath.radiatrix.types.*;
 import javafx.scene.shape.*;
+import javafx.scene.shape.Line;
 import javafx.scene.paint.*;
 import javafx.scene.*;
 import javafx.collections.*;
@@ -48,7 +49,8 @@ class PolarView{
 		for (Measurement measure : measures){
 			String name = measure.name();
 			Number max = maxValues.get(name);
-			assert (max.doubleValue() > 0) : "max.doubleValue is less than or equal to zero: " + max.doubleValue();
+			if (max == 0) continue; //In this case, none of the measures on this scale in the data set were greater than zero.
+			assert (max.doubleValue() > 0) : "max.doubleValue is less than zero: " + max.doubleValue();
 			double ratio = measure.value().doubleValue() / max.doubleValue();
 			assert ratio <= 1;
 			children.add(getLine(n, ratio, shift));

@@ -1,82 +1,55 @@
 package com.billhorvath.radiatrix.util;
 
+import com.billhorvath.radiatrix.types.*;
+import com.billhorvath.radiatrix.types.impl.*;
+
 /**
-Calculates the final position of a point in a plane after it's been rotated by an arbitrary number of degrees.
+
 */
-class Rotator{
+public class Rotator{
 	
 	private static Rotator instance;
-	private double startX, startY, rotation, hypotenuse, endX, endY;
+	private Point startingPoint;	
 
 	/**
-	@param startX The point's starting position along the X axis
-	@param startY the point's starting position along the Y axis
-	@param rotation The amount to rotate the point around the center of the plane (Z axis), in degrees.
-	
+
 	*/
-	private Rotator(double startX, double startY, double rotation){
-		recalculate(startX, startY, rotation); //initializes field values
+	private Rotator(Point startingPoint){
+		this.setStartingPoint(startingPoint);
 	}
 	
 	/**
 	Calculates the final position of a point in a plane whose initial position is specified by <code>(startX, startY)</code> and has been rotated by <code>rotation</code> degrees.
+
+	@param startingPoint The point this <code>rotator</code> will rotate.
+	@return A Rotator initialized to the submitted values.
 	*/
-	static Rotator getInstance(double startX, double startY, double rotation){
-		if (instance == null) instance = new Rotator(startX, startY, rotation);
-		else instance.recalculate(startX, startY, rotation);
+	public static Rotator getInstance(Point startingPoint){
+		if (instance == null) instance = new Rotator(startingPoint);
+		else instance.setStartingPoint(startingPoint);
 		return instance;
 	}
 	/**
-	Sets the field values. Note that rotation is specified to be submitted in degrees, but is calculated in radians.
+		
 	*/
-	private void recalculate(double startX, double startY, double rotation){
-		this.startX = startX;
-		this.startY = startY;
-		this.rotation = Math.toRadians(rotation);
-
-		this.hypotenuse = hypotenuse();
-		this.endY = getEndY();
-		this.endX = getEndX();
+	private void setStartingPoint(Point startingPoint){
+		this.startingPoint = startingPoint;
 	}
 	/**
-	Calculates the hypotenuse of a lawn drawn from the starting point to the center (0,0) of the plane. 	
+	Calculates the new three-dimensional position of <code>startingPoint</code> after having been rotated by the degrees specified in <code>rotation</code> around an arbitrary point specified by <code>inSpace</code>.
+	@return <code>startingPoint</code> after it has been rotated by <code>rotation</code> degrees around <code>inSpace</code>.
 	*/
-	private double hypotenuse(){
-		return Math.hypot(startX, startY);
-	}
-	/**
-	Calculates the angle (in radians) between the zero degree line and the line that runs between (0,0) and (startX, startY).	
-	*/
-	private double firstAngle(){
-		double ratio = startY / hypotenuse;
-		return Math.asin(ratio);
-	}
-	/**
-	Calculates the value of <code>endY</code> after being rotated by <code>rotation</code> degrees.
-	*/
-	private double getEndY(){
-		double fullAngle = rotation + firstAngle();
-		double sine = Math.sin(fullAngle);
-		return hypotenuse * sine;
-	}
-	/**
-	Calculates the value of X after rotation.	
-	*/
-	private double getEndX(){
-		double hypSq = hypotenuse * hypotenuse;
-		double endYSq = endY * endY;
-		return Math.sqrt(hypSq + endYSq);
-	}
-	/**
-	Returns the value of X after rotation.	
-	*/
-	public double endX(){
-		return endX;
-	}
-	/**
-	Returns the value of Y after rotation.
-	*/
-	public double endY(){
-		return endY;
+	public Point rotateAround(Point inSpace, Rotation rotation){
+		Point result = PointFactory.getInstance().copy(startingPoint);
+		double x = inSpace.x();
+		double y = inSpace.y();
+		double z = inSpace.z();
+		Shift shiftZeroPoint = PointShifter.getInstance(x, y, z);
+		Shift shiftBack = PointShifter.getInstance(-1 * x, -1 * y, -1 * z);
+		
+		result.shift(shiftZeroPoint)
+			.rotate(rotation)
+			.shift(shiftBack);
+		return result;
 	}
 }
