@@ -42,7 +42,8 @@
 
         <javac includeantruntime="false"
         	srcdir="${src.dir}" 
-        	destdir="${classes.dir}">
+        	destdir="${classes.dir}"
+        	debug="true">
 			<classpath refid="project.class.path"/>
         	<exclude name="**/package-info.java"/>
         </javac>
@@ -73,7 +74,7 @@
     	description="Generates the package documentation using javadoc.">
     	<delete dir="${docs.dir}"/>
     	<mkdir dir="${docs.dir}"/>
-    	<javadoc destdir="${docs.dir}" packagenames="com.billhorvath.radiatrix.**">
+    	<javadoc destdir="${docs.dir}" packagenames="com.billhorvath.radiatrix.**.*">
     		<sourcepath refid="source.path"/>
 			<classpath refid="project.class.path"/>
     	</javadoc>
