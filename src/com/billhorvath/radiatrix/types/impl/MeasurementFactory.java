@@ -15,7 +15,7 @@ public class MeasurementFactory{
 	/**
 	Returns an instance of {@link Measurement Measurement} with field values corresponding to the submitted paramaters.
 	*/
-	public static <N extends Number> Measurement<N> getInstance(final String name, final String unitName, final String unitNamePl, final String unitNameAbbr, final MeasurementGroup group, final N number){
+	public static <N extends Number> Measurement<N> getInstance(final String name, final String unitName, final String unitNamePl, final String unitNameAbbr, final N number){
 		
 		return new Measurement<N>(){
 			public String name(){
@@ -29,9 +29,6 @@ public class MeasurementFactory{
 			}
 			public String unitNameAbbr(){
 				return unitNameAbbr;
-			}
-			public MeasurementGroup group(){
-				return group;
 			}
 			public N value(){
 				return number;

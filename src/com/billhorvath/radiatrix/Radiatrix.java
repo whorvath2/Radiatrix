@@ -26,7 +26,7 @@ public class Radiatrix{
 
 
     public static void main(String[] args) {
-        Application.launch(DataSetupScene.class, args);
+        Application.launch(OpeningScene.class, args);
     }
     /**
 		

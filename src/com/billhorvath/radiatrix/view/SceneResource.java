@@ -8,6 +8,7 @@ import com.billhorvath.radiatrix.*;
 
 */
 public enum SceneResource{
+	OPENING_SCENE("OpeningScene.fxml"),
 	DATASET_SETUP("DatasetCharacteristicsScene.fxml"),
 	TUPLES_SETUP("TupleCharacteristicsScene.fxml");
 	
@@ -18,6 +19,7 @@ public enum SceneResource{
 	*/
 	SceneResource(String fileName){
 		this.fileName = fileName;
+		System.out.println("fileName = " + fileName);
 	}
 	/**
 		

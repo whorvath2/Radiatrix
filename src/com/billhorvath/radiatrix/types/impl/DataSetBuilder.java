@@ -58,7 +58,7 @@ public class DataSetBuilder<T extends DataSetBuilder<T>>{
 				assert abbrev != null;
 				Number value = measureMap.get(measureName);
 
-				Measurement<Number> measurement = MeasurementFactory.getInstance(measureName, "", "", abbrev, MeasurementGroup.UNSPECIFIED, value);
+				Measurement<Number> measurement = MeasurementFactory.getInstance(measureName, "", "", abbrev, value);
 				measures.add(measurement);
 
 				//populate maxValues...

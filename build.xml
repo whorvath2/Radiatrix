@@ -2,6 +2,7 @@
 	<description>&#10;***Welcome to the Radiatrix.***&#10;&#10;</description>
 	<property name="package.dir"	value="com/billhorvath/radiatrix"/>
     <property name="src.dir"		value="src"/>
+	<property name="lib.dir"		value="lib"/>
     <property name="build.dir"		value="build"/>
     <property name="classes.dir"	value="${build.dir}/classes"/>
     <property name="jar.dir"		value="${build.dir}/jar"/>
@@ -9,12 +10,16 @@
     <property name="resources.dir"	value="resources"/>
     <property name="package.name"	value="com.billhorvath.radiatrix"/>
     <property name="main-class"		value="${package.name}.Radiatrix"/>
-	<property name="jfx.dir"		value="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib"/>
-	
+	<property name="jfx.dir"		value="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib"/>	
 	<property name="resources.source.path" value="${src.dir}/${package.dir}/${resources.dir}" />
-	
 	<property name="resources.dest.path" value="${classes.dir}/${package.dir}/${resources.dir}" />
 	
+	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+		 <classpath>
+			 <fileset dir="${lib.dir}" includes="*.jar"/>
+		 </classpath>
+	</taskdef>	
+
 	<path id="source.path">
 		<pathelement path="${src.dir}/"/>
 	</path>
@@ -31,7 +36,21 @@
         <delete dir="${build.dir}"/>
     </target>
 
+	<target name="compile.schema"
+		description="Compiles the Radiatrix schema into Java interfaces.">
+        <mkdir dir="${classes.dir}"/>
+<!-- 
+		<mkdir dir="${schema.dest.path}"/>
+ -->
+		<xjc schema="${resources.source.path}/RadiatrixSchema.xsd"
+			package="${package.name}.types.xml"
+			destdir="${classes.dir}"
+			removeOldOutput="yes"
+		/>
+	</target>
+
     <target name="compile"
+    	depends="compile.schema"
     	description="Compiles the Radiatrix source code.">
         <mkdir dir="${classes.dir}"/>
         <copy todir="${resources.dest.path}">

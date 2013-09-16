@@ -34,11 +34,6 @@ public interface Measurement<T extends Number>{
 	String unitNameAbbr();
 	
 	/**
-	Returns the type of this measurement, which determines to what other units of measure this measurement may be converted. For example, if this measurement is of type LENGTH, it can be converted to another measurement of type LENGTH, such as from inches to centimeters.
-	*/
-	public MeasurementGroup group();
-	
-	/**
 	Returns the value of the measurement as measured along an ordinal scale; i.e., a data point. If the unit of measure underlying the scale of this measurement is not proportional (i.e., <code>this.scale().unitOfMeasure() == false</code>), Y should be of type Integer, BigInteger, or Byte. If the unit of measure is nominal, this method should throw an IllegalStateException.
 	
 	@return The value of the measurement in the units specified by units().
