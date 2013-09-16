@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="215.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.billhorvath.radiatrix.controller.OpeningSceneController">
+  <children>
+    <TitledPane alignment="TOP_LEFT" animated="false" collapsible="false" layoutX="12.0" layoutY="14.0" prefHeight="186.0" prefWidth="577.0" text="Welcome to the Radiatrix!">
+      <content>
+        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="572.0">
+          <children>
+            <Button fx:id="createData" layoutX="14.0" layoutY="61.0" mnemonicParsing="false" prefHeight="21.999900000002526" prefWidth="249.0" text="Create a New Data Set" />
+            <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="17.0" prefHeight="43.0" prefWidth="544.0" text="What would you like to do?" />
+            <Button id="openDataSet" fx:id="openData" layoutX="307.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="248.00009999999747" text="Open an Existing Data Set" />
+            <Button id="close" fx:id="exit" layoutX="176.0" layoutY="110.0" mnemonicParsing="false" prefWidth="221.0" text="Exit the Radiatrix" />
+          </children>
+        </AnchorPane>
+      </content>
+    </TitledPane>
+  </children>
+</AnchorPane>

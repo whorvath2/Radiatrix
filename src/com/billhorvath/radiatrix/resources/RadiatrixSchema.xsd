@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="us-ascii"?>
+
+<schema 
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:rad="Radiatrix"
+	jaxb:version="1.0"	
+	targetNamespace="Radiatrix"
+	elementFormDefault="unqualified" 
+	attributeFormDefault="unqualified">
+
+<!-- 
+    <include schemaLocation="system.xsd"/>
+    <import namespace="Things" schemaLocation="things.xsd"/>
+ -->
+ 	<complexType name="DatasetType">
+ 		<sequence>
+ 			<element name="Name"
+ 				type="string" minOccurs="1" maxOccurs="1"/>
+ 			<element name="Tuple"
+ 				type="rad:TupleType" minOccurs="0" maxOccurs="unbounded"/>
+ 		</sequence>
+	</complexType>
+
+	<complexType name="TupleType">
+		<sequence>
+			<element name="Name"
+				type="string" minOccurs="1" maxOccurs="1"/>
+			<element name="Measurement"
+				type="rad:MeasurementType" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="MeasurementType">
+		<sequence>
+			<element name="Name"
+				type="string" minOccurs="1" maxOccurs="1"/>
+			<element name="UnitNameSingular"
+				type="string" minOccurs="0" maxOccurs="1"/>
+			<element name="UnitNamePlural"
+				type="string" minOccurs="0" maxOccurs="1"/>
+			<element name="UnitNameAbbr"
+				type="string" minOccurs="0" maxOccurs="1"/>
+			<element name="Value"
+				type="rad:NumberType" minOccurs="1" maxOccurs="1"/>
+		</sequence>
+	</complexType>				
+				
+	<simpleType name="NumberType">
+		<annotation>
+			<appinfo>
+				<jaxb:javaType name="java.lang.Number"
+					printMethod="com.billhorvath.radiatrix.util.DatatypeConverter.printNumber"
+					parseMethod="com.billhorvath.radiatrix.util.DatatypeConverter.parseNumber"/>
+			</appinfo>
+		</annotation>
+		<restriction base="string"/>
+	</simpleType>
+</schema>
