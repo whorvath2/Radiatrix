@@ -39,7 +39,7 @@ public class MeasurementFactory{
 	Since this class will never be instantiated, this method will always return -1.	
 	@return <code>-1</code>.
 	*/
-	
+	@Override
 	public int hashCode(){
 		return -1;
 	}
@@ -48,7 +48,7 @@ public class MeasurementFactory{
 	Since this class will never be instantiated, this method will always return false.
 	@return <code>false</code>.
 	*/
-	
+	@Override
 	public boolean equals(Object obj){
 		return false;
 	}
@@ -57,7 +57,7 @@ public class MeasurementFactory{
 	Since this class will never be instantiated, this method will always return null.
 	@return <code>null</code>.
 	*/
-
+	@Override
 	public String toString(){
 		return null;
 	}

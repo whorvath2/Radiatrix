@@ -22,13 +22,19 @@ public class PointFactory{
 	/**
 	Creates a mutable copy of <code>startingPoint</code>.
 	
+	@param startingPoint The initial location of the point in space.
 	@return a mutable copy of <code>startingPoint</code>.
 	*/
 	public Point copy(Point startingPoint){
 		return point(startingPoint.x(), startingPoint.y(), startingPoint.z());
 	}
 	/**
-	Creates a mutable point at the specified location in space. The point implements both the shift and rotate methods.	
+	Creates a mutable point at the specified location in space. The point implements both the shift and rotate methods.
+	@param x The initial location of the point along the X axis.
+	@param Y The initial location of the point along the Y axis.
+	@param Z The initial location of the point along the Z axis.
+	@return A point whose initial position is at x, y, z.
+	
 	*/
 	public Point point(final double x, final double y, final double z){
 

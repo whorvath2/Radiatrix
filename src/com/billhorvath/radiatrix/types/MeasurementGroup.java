@@ -9,6 +9,7 @@ An enumeration of types of {@link Measurement Measurements}. Different <code>mea
 */
 
 public enum MeasurementGroup{
+	//TO-DO: Make this list more comprehensive
 	LENGTH, 
 	AREA,
 	VOLUME,

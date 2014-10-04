@@ -31,7 +31,11 @@ public class PlanarRotator{
 		return instance;
 	}
 	/**
-	Sets the field values.
+	Sets the point's initial position in X and Y and calculates its new position after having rotated by <code>degrees</code>.
+	
+	@param startX The point's location along the X axis.
+	@param startY The point's location along the Y axis.
+	@param degrees The number of degrees the point should be rotated (may be positive or negative.)
 	*/
 	private void recalculate(double startX, double startY, double degrees){
 		this.startX = startX;
@@ -79,6 +83,7 @@ public class PlanarRotator{
 	}
 	/**
 	Rotates the point by <code>degrees</code> degrees and re-calculates {@link #endX() endX()} and {@link #endY() endY()}. Can be used to repeatedly rotate a point around a circle and calculate it's position in x, y coordinates.
+	@param degrees The number of degrees through which a point is rotated by this method.
 	@return This PlanarRotator instance with endX and endY updated to reflect the new rotation.
 	*/
 	public PlanarRotator rotate(double degrees){

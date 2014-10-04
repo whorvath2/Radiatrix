@@ -13,11 +13,14 @@ All lines are defined by two points, one at each end of the line. By convention,
 public interface Line{
 	/**
 	Returns the point at the end of this line specified by <code>endPoint</code>.
+	
+	@param endPoint One of the endpoints of this line.
 	@return the point at the end of this line specified by <code>endPoint</code>.
 	*/
 	public Point end(EndPoint endPoint);
 	/**
-	Returns the point at the middle of this line.
+	Calculates and returns the point at the middle of this line.
+	
 	@return the point at the middle of this line.
 	*/
 	public Point middle();
@@ -33,7 +36,10 @@ public interface Line{
 	*/
 	public Line rotate(Point fulcrum, Rotation rotation);
 	/**
-	Shifts this entire line along <code>axis</code> by <code>amount</code>. The resulting line will be parallel (in all three dimensions) to where it started.
+	Shifts this entire line in space by the distances and along the axes specified in <code>shift</code>. The resulting line will be parallel to where it started.
+
+	@param shift The distance by which the line will be shifted in space.
+	@return This line, after the shift operation has been completed.
 	*/
 	public Line shift(Shift shift);
 }

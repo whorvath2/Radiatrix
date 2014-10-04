@@ -3,6 +3,7 @@ package com.billhorvath.radiatrix.types.impl;
 import com.billhorvath.radiatrix.types.*;
 
 /**
+Provides a default implementation of Shift for moving a point along any of three axes.
 
 */
 public class PointShifter implements Shift{
@@ -22,7 +23,12 @@ public class PointShifter implements Shift{
 	}
 	
 	/**
-		
+	Returns a PointShifter instance.
+	
+	@param shiftX The distance the point will move along the X axis.
+	@param shiftY The distance the point will move along the Y axis.
+	@param shiftZ The distance the point will move along the Z axis.
+	
 	*/
 	public static PointShifter getInstance(double shiftX, double shiftY, double shiftZ){
 
@@ -35,7 +41,9 @@ public class PointShifter implements Shift{
 		return instance;
 	}
 	/**
-		
+	Returns the distance by which the point will be shifted along <code>axis</code>.
+	@param axis The axis along which the point will be shifted.
+	@return A double value representing the distance the point will be shifted along the axis in question.
 	*/
 	public double distance(Axis axis){
 		switch(axis){
