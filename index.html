@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Radiatrix by whorvath2</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Radiatrix</h1>
+        <p>A columnar multi-dimensional data visualization tool</p>
+        <p class="view"><a href="https://github.com/whorvath2/Radiatrix">View the Project on GitHub <small>whorvath2/Radiatrix</small></a></p>
+        <ul>
+          <li><a href="https://github.com/whorvath2/Radiatrix/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/whorvath2/Radiatrix/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/whorvath2/Radiatrix">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>
+<a id="welcome-to-the-radiatrix" class="anchor" href="#welcome-to-the-radiatrix" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to the Radiatrix</h3>
+
+<h4>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h4>
+
+<p>The Radiatrix allows tuples (measures with any arbitrary number of degrees of freedom) that are taken repeatedly (either across or within subjects) to be visualized using a combination of polar and axial perspectives, i.e. arranged as a column or cylinder.</p>
+
+<p>For the purpose of visualization, the scale of units of individual measures don't matter, especially in relation to other measures into which they could be logically converted. The idea of this tool is to show how measures correlate with one another, regardless of the scale at which they are constructed. Ergo, all measures are scaled to be 'visually appreciable' in the viewing scene.</p>
+
+<p>To clarify with an example: If measures were taken in one dimension in millimeters, and along another dimension in meters, both will be represented in the radiatrix as a ratio within their maximum measures, and not relative to one another's actual scale.</p>
+
+<h4>
+<a id="specification" class="anchor" href="#specification" aria-hidden="true"><span class="octicon octicon-link"></span></a>Specification</h4>
+
+<p>Each tuple is represented in a polar coordinate space. The circle is arbitrarily divided into equal-sized portions ("slices") by as many lines (or radii) are there are degrees of freedom in the tuple. Each line is marked according to its units, and serve as a scale along which vectors are drawn for each data point, with the vectors originating in the center of the circle, and ending at the value corresponding to that in the tuple's data point.</p>
+
+<p>In any arbitrary experiment resulting in a set of tuples, each set's data is plotted on its own polar coordinate space. The spaces from all or groups of the tuples can then be "stacked" into a column for visualization purposes, subject to the following restrictions:</p>
+
+<ul>
+<li>Each space in the stack is aligned with those above and below it such that the same scale lines point in the same directions.</li>
+<li>The order of the stack (top to bottom) may be altered to maximize the clarity of the relationships represented, so long as the reordering doesn't violate the logical tenets underlying the experiment. For example, in a set of tuples of measurements taken on one person, the polar spaces should likely be placed in temporal order in the stack.</li>
+<li>If the measurement interval across subjects is a factor in the experiment, the ratio of the spacing between each space in the stack should correspond to the measurement interval.</li>
+</ul>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/whorvath2">whorvath2</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
